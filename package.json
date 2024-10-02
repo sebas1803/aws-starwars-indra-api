@@ -1,0 +1,8 @@
+{
+  "name": "aws-starwars-indra-api",
+  "version": "1.0.0",
+  "description": "Serverless with DynamoDB and SWAPI",
+  "keywords": [],
+  "author": "Sebastian Alfaro Mendoza",
+  "license": "MIT"
+}
