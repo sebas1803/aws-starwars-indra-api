@@ -4,5 +4,9 @@
   "description": "Serverless with DynamoDB and SWAPI",
   "keywords": [],
   "author": "Sebastian Alfaro Mendoza",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.1691.0",
+    "axios": "^1.7.7"
+  }
 }
