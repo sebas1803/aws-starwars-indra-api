@@ -5,7 +5,7 @@ module.exports.getPlanetById = async (event) => {
 
     try {
         const planet = await planetsService.getPlanetById(id);
-        if (!planet.Item) {
+        if (!planet) {
             return {
                 statusCode: 404,
                 body: JSON.stringify({ message: 'Planeta no encontrado.' }),
@@ -13,7 +13,7 @@ module.exports.getPlanetById = async (event) => {
         }
         return {
             statusCode: 200,
-            body: JSON.stringify(planet.Item),
+            body: JSON.stringify(planet),
         };
     } catch (error) {
         return {

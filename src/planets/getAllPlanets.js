@@ -5,7 +5,7 @@ module.exports.getAllPlanets = async () => {
         const planets = await planetsService.getAllPlanets();
         return {
             statusCode: 200,
-            body: JSON.stringify(planets.Items),
+            body: JSON.stringify(planets),
         };
     } catch (error) {
         console.error('Error al recuperar los planetas:', error);

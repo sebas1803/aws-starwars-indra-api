@@ -20,7 +20,7 @@ class Starship {
         this.peliculas = peliculas;
         this.fecha_creacion = new Date().toISOString();
         this.fecha_edicion = new Date().toISOString();
-        this.url = "No URL";  // Se asigna como "No URL" inicialmente
+        this.url = "No URL";
     }
 
     static fromRequestBody(body) {

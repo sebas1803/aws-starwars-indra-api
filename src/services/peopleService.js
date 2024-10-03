@@ -4,8 +4,8 @@ const dynamoDB = new AWS.DynamoDB.DocumentClient();
 const { translateKeys } = require('../utils/translation');
 const { fetchAllFromSwapi } = require('../utils/swapiFetcher');
 
-const tableName = 'StarWarsPeople';
-const swapiBaseUrl = 'https://swapi.py4e.com/api';
+const tableName = process.env.DYNAMODB_TABLE_PEOPLE;
+const swapiBaseUrl = process.env.SWAPI_BASE_URL;
 
 class PeopleService {
     static async createCharacter(data) {
@@ -44,7 +44,7 @@ class PeopleService {
         }
     }
 
-    static async getAllCharacters() {
+    static async getAllPeopleData() {
         const params = {
             TableName: tableName,
         };

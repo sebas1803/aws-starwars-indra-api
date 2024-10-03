@@ -5,7 +5,7 @@ module.exports.getStarshipById = async (event) => {
 
     try {
         const starship = await starshipsService.getStarshipById(id);
-        if (!starship.Item) {
+        if (!starship) {
             return {
                 statusCode: 404,
                 body: JSON.stringify({ message: 'Nave espacial no encontrada.' }),
@@ -13,7 +13,7 @@ module.exports.getStarshipById = async (event) => {
         }
         return {
             statusCode: 200,
-            body: JSON.stringify(starship.Item),
+            body: JSON.stringify(starship),
         };
     } catch (error) {
         return {

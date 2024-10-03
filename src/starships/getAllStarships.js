@@ -5,7 +5,7 @@ module.exports.getAllStarships = async () => {
         const starships = await starshipsService.getAllStarships();
         return {
             statusCode: 200,
-            body: JSON.stringify(starships.Items),
+            body: JSON.stringify(starships),
         };
     } catch (error) {
         console.error('Error al recuperar las naves espaciales:', error);

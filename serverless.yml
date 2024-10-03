@@ -9,6 +9,12 @@ provider:
   name: aws
   runtime: nodejs20.x
   region: us-east-1
+  environment:
+    SWAPI_BASE_URL: ${env:SWAPI_BASE_URL}
+    DYNAMODB_TABLE_PEOPLE: ${env:DYNAMODB_TABLE_PEOPLE}
+    DYNAMODB_TABLE_PLANETS: ${env:DYNAMODB_TABLE_PLANETS}
+    DYNAMODB_TABLE_STARSHIPS: ${env:DYNAMODB_TABLE_STARSHIPS}
+
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -16,18 +22,11 @@ provider:
         - dynamodb:Scan
         - dynamodb:GetItem
       Resource:
-        - arn:aws:dynamodb:us-east-1:*:table/StarWarsPeople
-        - arn:aws:dynamodb:us-east-1:*:table/StarWarsStarships
-        - arn:aws:dynamodb:us-east-1:*:table/StarWarsPlanets
+        - arn:aws:dynamodb:${aws:region}:*:table/${self:provider.environment.DYNAMODB_TABLE_PEOPLE}
+        - arn:aws:dynamodb:${aws:region}:*:table/${self:provider.environment.DYNAMODB_TABLE_PLANETS}
+        - arn:aws:dynamodb:${aws:region}:*:table/${self:provider.environment.DYNAMODB_TABLE_STARSHIPS}
 
 functions:
-  handler:
-    handler: src/handler.hello
-    events:
-      - httpApi:
-          path: /
-          method: get
-
   # People endpoints
   createCharacter:
     handler: src/people/createData.createData
@@ -101,7 +100,7 @@ resources:
     StarWarsCharacters:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: StarWarsPeople
+        TableName: ${self:provider.environment.DYNAMODB_TABLE_PEOPLE}
         BillingMode: PAY_PER_REQUEST
         AttributeDefinitions:
           - AttributeName: id
@@ -112,7 +111,7 @@ resources:
     StarWarsStarships:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: StarWarsStarships
+        TableName: ${self:provider.environment.DYNAMODB_TABLE_STARSHIPS}
         BillingMode: PAY_PER_REQUEST
         AttributeDefinitions:
           - AttributeName: id
@@ -123,7 +122,7 @@ resources:
     StarWarsPlanets:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: StarWarsPlanets
+        TableName: ${self:provider.environment.DYNAMODB_TABLE_PLANETS}
         BillingMode: PAY_PER_REQUEST
         AttributeDefinitions:
           - AttributeName: id
@@ -131,3 +130,6 @@ resources:
         KeySchema:
           - AttributeName: id
             KeyType: HASH
+
+plugins:
+  - serverless-dotenv-plugin

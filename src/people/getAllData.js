@@ -5,7 +5,7 @@ module.exports.getAllData = async () => {
         const people = await peopleService.getAllPeopleData();
         return {
             statusCode: 200,
-            body: JSON.stringify(people.Items),
+            body: JSON.stringify(people),
         };
     } catch (error) {
         console.error('Error al recuperar los datos:', error);

@@ -1,8 +1,10 @@
 const axios = require('axios');
 
+const swapiBaseUrl = process.env.SWAPI_BASE_URL;
+
 async function fetchAllFromSwapi(endpoint) {
     let allResults = [];
-    let nextUrl = `https://swapi.py4e.com/api/${endpoint}/`;
+    let nextUrl = `${swapiBaseUrl}/${endpoint}/`;
 
     while (nextUrl) {
         const response = await axios.get(nextUrl);

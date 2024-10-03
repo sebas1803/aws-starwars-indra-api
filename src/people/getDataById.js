@@ -5,7 +5,7 @@ module.exports.getDataById = async (event) => {
 
     try {
         const character = await peopleService.getCharacterById(id);
-        if (!character.Item) {
+        if (!character) {
             return {
                 statusCode: 404,
                 body: JSON.stringify({ message: 'Personaje no encontrado.' }),
@@ -13,7 +13,7 @@ module.exports.getDataById = async (event) => {
         }
         return {
             statusCode: 200,
-            body: JSON.stringify(data.Item),
+            body: JSON.stringify(character),
         };
     } catch (error) {
         return {

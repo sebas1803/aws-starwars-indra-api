@@ -4,8 +4,8 @@ const dynamoDB = new AWS.DynamoDB.DocumentClient();
 const { translateKeys } = require('../utils/translation');
 const { fetchAllFromSwapi } = require('../utils/swapiFetcher');
 
-const tableName = 'StarWarsPlanets';
-const swapiBaseUrl = 'https://swapi.py4e.com/api';
+const tableName = process.env.DYNAMODB_TABLE_PLANETS;
+const swapiBaseUrl = process.env.SWAPI_BASE_URL;
 
 class PlanetService {
     static async createPlanet(data) {
