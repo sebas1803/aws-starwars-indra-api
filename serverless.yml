@@ -9,11 +9,127 @@ provider:
   name: aws
   runtime: nodejs20.x
   region: us-east-1
+  environment:
+    SWAPI_BASE_URL: ${env:SWAPI_BASE_URL}
+    DYNAMODB_TABLE_PEOPLE: ${env:DYNAMODB_TABLE_PEOPLE}
+    DYNAMODB_TABLE_PLANETS: ${env:DYNAMODB_TABLE_PLANETS}
+    DYNAMODB_TABLE_STARSHIPS: ${env:DYNAMODB_TABLE_STARSHIPS}
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:PutItem
+        - dynamodb:Scan
+        - dynamodb:GetItem
+      Resource:
+        - arn:aws:dynamodb:${aws:region}:*:table/${self:provider.environment.DYNAMODB_TABLE_PEOPLE}
+        - arn:aws:dynamodb:${aws:region}:*:table/${self:provider.environment.DYNAMODB_TABLE_PLANETS}
+        - arn:aws:dynamodb:${aws:region}:*:table/${self:provider.environment.DYNAMODB_TABLE_STARSHIPS}
 
 functions:
-  hello:
-    handler: handler.hello
+  # People endpoints
+  createCharacter:
+    handler: src/people/createData.createData
     events:
       - httpApi:
-          path: /
+          path: /starwars/people
+          method: post
+
+  getAllPeople:
+    handler: src/people/getAllData.getAllData
+    events:
+      - httpApi:
+          path: /starwars/people
           method: get
+
+  getCharacterById:
+    handler: src/people/getDataById.getDataById
+    events:
+      - httpApi:
+          path: /starwars/people/{id}
+          method: get
+
+  # Starships endpoints
+  createStarship:
+    handler: src/starships/createStarship.createStarship
+    events:
+      - httpApi:
+          path: /starwars/starships
+          method: post
+
+  getAllStarships:
+    handler: src/starships/getAllStarships.getAllStarships
+    events:
+      - httpApi:
+          path: /starwars/starships
+          method: get
+
+  getStarshipById:
+    handler: src/starships/getStarshipById.getStarshipById
+    events:
+      - httpApi:
+          path: /starwars/starships/{id}
+          method: get
+
+  # Planets endpoints
+  createPlanet:
+    handler: src/planets/createPlanet.createPlanet
+    events:
+      - httpApi:
+          path: /starwars/planets
+          method: post
+
+  getAllPlanets:
+    handler: src/planets/getAllPlanets.getAllPlanets
+    events:
+      - httpApi:
+          path: /starwars/planets
+          method: get
+
+  getPlanetById:
+    handler: src/planets/getPlanetById.getPlanetById
+    events:
+      - httpApi:
+          path: /starwars/planets/{id}
+          method: get
+
+# Set dynamoDB Connection
+resources:
+  Resources:
+    # DynamoDB Tables
+    StarWarsCharacters:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.DYNAMODB_TABLE_PEOPLE}
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+    StarWarsStarships:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.DYNAMODB_TABLE_STARSHIPS}
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+    StarWarsPlanets:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.DYNAMODB_TABLE_PLANETS}
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+
+plugins:
+  - serverless-dotenv-plugin
