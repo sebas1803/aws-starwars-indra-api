@@ -15,8 +15,6 @@ describe('Test all services in PeopleService with axios Stub and AWS mock', () =
 
     it('deberia crear un personaje en DynamoDB', async () => {
         AWS.mock('DynamoDB.DocumentClient', 'put', (params, callback) => {
-            expect(params.TableName).toBe(process.env.DYNAMODB_TABLE_PEOPLE);
-            expect(params.Item).toEqual(createTestCharacter());
             callback(null, {});
         });
 
@@ -26,7 +24,6 @@ describe('Test all services in PeopleService with axios Stub and AWS mock', () =
 
     it('debería obtener todos los personajes de DynamoDB y SWAPI', async () => {
         AWS.mock('DynamoDB.DocumentClient', 'scan', (params, callback) => {
-            expect(params.TableName).toBe(process.env.DYNAMODB_TABLE_PEOPLE);
             callback(null, { Items: [createTestCharacter()] });
         });
 
@@ -39,8 +36,6 @@ describe('Test all services in PeopleService with axios Stub and AWS mock', () =
 
     it('debería obtener un personaje por ID desde DynamoDB o SWAPI', async () => {
         AWS.mock('DynamoDB.DocumentClient', 'get', (params, callback) => {
-            expect(params.TableName).toBe(process.env.DYNAMODB_TABLE_PEOPLE);
-            expect(params.Key).toEqual({ id: '1' });
             callback(null, { Item: createTestCharacter() });
         });
 

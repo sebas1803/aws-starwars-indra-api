@@ -5,7 +5,7 @@ info:
 paths:
   /starwars/character:
     post:
-      summary: Crea un personaje de StarWars en la base de datos según su ID en SWAPI
+      summary: Crea un personaje de StarWars en la base de datos
       requestBody:
         required: true
         content:
@@ -18,7 +18,7 @@ paths:
                   description: El ID del personaje en SWAPI
       responses:
         "200":
-          description: Datos guardados correctamente
+          description: Personaje creado correctamente
         "400":
           description: Error en la petición
           content:
@@ -52,3 +52,168 @@ paths:
                       type: string
                     altura:
                       type: string
+
+  /starwars/character/{id}:
+    get:
+      summary: Obtiene un personaje por su ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: El ID del personaje
+      responses:
+        "200":
+          description: Personaje encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  nombre:
+                    type: string
+                  altura:
+                    type: string
+        "404":
+          description: Personaje no encontrado
+        "500":
+          description: Error en el servidor
+
+  /starwars/starship:
+    post:
+      summary: Crea una nave espacial de StarWars en la base de datos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: El ID de la nave en SWAPI
+      responses:
+        "200":
+          description: Nave espacial creada correctamente
+        "400":
+          description: Error en la petición
+        "500":
+          description: Error en el servidor
+    get:
+      summary: Devuelve todas las naves espaciales almacenadas
+      responses:
+        "200":
+          description: Lista de naves espaciales
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    nombre:
+                      type: string
+                    modelo:
+                      type: string
+
+  /starwars/starship/{id}:
+    get:
+      summary: Obtiene una nave espacial por su ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: El ID de la nave
+      responses:
+        "200":
+          description: Nave espacial encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  nombre:
+                    type: string
+                  modelo:
+                    type: string
+        "404":
+          description: Nave espacial no encontrada
+        "500":
+          description: Error en el servidor
+
+  /starwars/planet:
+    post:
+      summary: Crea un planeta de StarWars en la base de datos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: El ID del planeta en SWAPI
+      responses:
+        "200":
+          description: Planeta creado correctamente
+        "400":
+          description: Error en la petición
+        "500":
+          description: Error en el servidor
+    get:
+      summary: Devuelve todos los planetas almacenados
+      responses:
+        "200":
+          description: Lista de planetas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    nombre:
+                      type: string
+                    clima:
+                      type: string
+
+  /starwars/planet/{id}:
+    get:
+      summary: Obtiene un planeta por su ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: El ID del planeta
+      responses:
+        "200":
+          description: Planeta encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  nombre:
+                    type: string
+                  clima:
+                    type: string
+        "404":
+          description: Planeta no encontrado
+        "500":
+          description: Error en el servidor

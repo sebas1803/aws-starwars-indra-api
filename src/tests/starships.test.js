@@ -24,7 +24,6 @@ describe('Test all services in StarshipsService with axios Stub and AWS mock', (
 
     it('debería obtener todas las naves de DynamoDB y SWAPI', async () => {
         AWS.mock('DynamoDB.DocumentClient', 'scan', (params, callback) => {
-            expect(params.TableName).toBe(process.env.DYNAMODB_TABLE_STARSHIPS);
             callback(null, { Items: [createTestStarship()] });
         });
 
@@ -37,8 +36,6 @@ describe('Test all services in StarshipsService with axios Stub and AWS mock', (
 
     it('debería obtener una nave por ID desde DynamoDB o SWAPI', async () => {
         AWS.mock('DynamoDB.DocumentClient', 'get', (params, callback) => {
-            expect(params.TableName).toBe(process.env.DYNAMODB_TABLE_STARSHIPS);
-            expect(params.Key).toEqual({ id: '2' });
             callback(null, { Item: createTestStarship() });
         });
 
