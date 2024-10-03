@@ -1,6 +1,6 @@
 const peopleService = require('../services/peopleService');
 
-module.exports.getDataById = async (event) => {
+async function getDataById(event) {
     const { id } = event.pathParameters;
 
     try {
@@ -22,3 +22,5 @@ module.exports.getDataById = async (event) => {
         };
     }
 };
+
+module.exports.getDataById = getDataById;

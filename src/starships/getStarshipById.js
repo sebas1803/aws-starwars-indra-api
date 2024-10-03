@@ -1,6 +1,6 @@
 const starshipsService = require('../services/starshipsService');
 
-module.exports.getStarshipById = async (event) => {
+async function getStarshipById(event) {
     const { id } = event.pathParameters;
 
     try {
@@ -22,3 +22,5 @@ module.exports.getStarshipById = async (event) => {
         };
     }
 };
+
+module.exports.getStarshipById = getStarshipById;

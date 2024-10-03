@@ -1,8 +1,8 @@
 const { v4: uuidv4 } = require('uuid');
 
 class Starship {
-    constructor({ nombre, modelo, fabricante, costo_en_creditos, longitud, velocidad_atmosferica_maxima, tripulacion, pasajeros, capacidad_de_carga, consumibles, calificacion_de_hipervelocidad, MGLT, clase_nave, pilotos, peliculas }) {
-        this.id = uuidv4();
+    constructor({ nombre, modelo, fabricante, costo_en_creditos, longitud, velocidad_atmosferica_maxima, tripulacion, pasajeros, capacidad_de_carga, consumibles, calificacion_de_hipervelocidad, MGLT, clase_nave, pilotos, peliculas, id = null, fecha_creacion = null, fecha_edicion = null }) {
+        this.id = id || uuidv4();
         this.nombre = nombre;
         this.modelo = modelo;
         this.fabricante = fabricante;
@@ -18,8 +18,8 @@ class Starship {
         this.clase_nave = clase_nave;
         this.pilotos = pilotos;
         this.peliculas = peliculas;
-        this.fecha_creacion = new Date().toISOString();
-        this.fecha_edicion = new Date().toISOString();
+        this.fecha_creacion = fecha_creacion || new Date().toISOString();
+        this.fecha_edicion = fecha_edicion || new Date().toISOString();
         this.url = "No URL";
     }
 

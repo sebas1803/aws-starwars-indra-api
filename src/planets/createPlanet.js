@@ -1,6 +1,6 @@
 const planetsService = require('../services/planetsService');
 
-module.exports.createPlanet = async (event) => {
+async function createPlanet(event) {
     const body = JSON.parse(event.body);
 
     try {
@@ -16,3 +16,5 @@ module.exports.createPlanet = async (event) => {
         };
     }
 };
+
+module.exports.createPlanet = createPlanet;

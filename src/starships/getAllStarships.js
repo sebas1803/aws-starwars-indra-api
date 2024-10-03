@@ -1,6 +1,6 @@
 const starshipsService = require('../services/starshipsService');
 
-module.exports.getAllStarships = async () => {
+async function getAllStarships() {
     try {
         const starships = await starshipsService.getAllStarships();
         return {
@@ -15,3 +15,5 @@ module.exports.getAllStarships = async () => {
         };
     }
 };
+
+module.exports.getAllStarships = getAllStarships;

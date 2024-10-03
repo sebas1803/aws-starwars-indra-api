@@ -26,8 +26,8 @@ class StarshipService {
 
         const dynamoData = await dynamoDB.get(params).promise();
 
-        if (dynamoData.Item) {
-            return dynamoData.Item;
+        if (dynamoData) {
+            return dynamoData;
         }
 
         try {

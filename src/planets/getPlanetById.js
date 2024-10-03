@@ -1,6 +1,6 @@
 const planetsService = require('../services/planetsService');
 
-module.exports.getPlanetById = async (event) => {
+async function getPlanetById(event) {
     const { id } = event.pathParameters;
 
     try {
@@ -22,3 +22,5 @@ module.exports.getPlanetById = async (event) => {
         };
     }
 };
+
+module.exports.getPlanetById = getPlanetById;

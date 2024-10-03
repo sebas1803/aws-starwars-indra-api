@@ -1,6 +1,6 @@
 const starshipsService = require('../services/starshipsService');
 
-module.exports.createStarship = async (event) => {
+async function createStarship(event) {
     const body = JSON.parse(event.body);
 
     try {
@@ -16,3 +16,5 @@ module.exports.createStarship = async (event) => {
         };
     }
 };
+
+module.exports.createStarship = createStarship;

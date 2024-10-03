@@ -1,6 +1,6 @@
 const peopleService = require('../services/peopleService');
 
-module.exports.createData = async (event) => {
+async function createData(event) {
     const body = JSON.parse(event.body);
 
     try {
@@ -15,4 +15,6 @@ module.exports.createData = async (event) => {
             body: JSON.stringify({ message: 'Error al crear el personaje', error }),
         };
     }
-};
+}
+
+module.exports.createData = createData;

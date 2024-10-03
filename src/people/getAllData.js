@@ -1,6 +1,6 @@
 const peopleService = require('../services/peopleService');
 
-module.exports.getAllData = async () => {
+async function getAllData() {
     try {
         const people = await peopleService.getAllPeopleData();
         return {
@@ -15,3 +15,5 @@ module.exports.getAllData = async () => {
         };
     }
 };
+
+module.exports.getAllData = getAllData;

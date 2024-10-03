@@ -1,6 +1,6 @@
 const planetsService = require('../services/planetsService');
 
-module.exports.getAllPlanets = async () => {
+async function getAllPlanets() {
     try {
         const planets = await planetsService.getAllPlanets();
         return {
@@ -15,3 +15,5 @@ module.exports.getAllPlanets = async () => {
         };
     }
 };
+
+module.exports.getAllPlanets = getAllPlanets;
